@@ -10,10 +10,10 @@ const LoginScreen = () => {
     const navigation = useNavigation();
     const [error, setError] = useState(false);
     const [num, setNum] = useState("");
-    const [reqId, setReqId] = useState("");
+    // const [reqId, setReqId] = useState("");
 
     const errorHandler=()=>{
-        if(num===""){
+        if(num==="" | num.length!==10){
             setError(true)
         }else{
             setError(false);
@@ -21,21 +21,25 @@ const LoginScreen = () => {
     }
 
     const verificatioHandler=()=>{
-        axios.post("https://otp.apistack.run/v1/sendOtp",{
-            phoneNumber: num,
-            messageFormat: "Thanks for registering at Buslala:) Please use this ${otp} as your OTP for verification."
-        },{
-            headers:{
-                'x-as-apikey': '96d018bc-a7ab-4dc4-92b9-810921f1b0ce',
-                'Content-Type': "application/json"
-            }
-        })
-        .then((res)=>{
-            return setReqId(res.data.requestId);
-        }).catch((err)=>{
-            console.log(err)
-        })
-        navigation.navigate("Otp", {number:num, request:reqId});
+
+        //OTP Verification Logic
+        
+        // axios.post("https://otp.apistack.run/v1/sendOtp",{
+        //     phoneNumber: num,
+        //     messageFormat: "Thanks for registering at Buslala:) Please use this ${otp} as your OTP for verification."
+        // },{
+        //     headers:{
+        //         'x-as-apikey': '96d018bc-a7ab-4dc4-92b9-810921f1b0ce',
+        //         'Content-Type': "application/json"
+        //     }
+        // })
+        // .then((res)=>{
+        //     return setReqId(res.data.requestId);
+        // }).catch((err)=>{
+        //     console.log(err)
+        // })
+        
+        {num && navigation.navigate("Otp", {number:num})}
     }
 
     return (
@@ -108,7 +112,8 @@ const styles = StyleSheet.create({
         backgroundColor:"lightgray",
         borderRadius:10,
         width:"80%",
-        marginVertical:20
+        marginVertical:20,
+        color:"black"
     },
     button:{
         backgroundColor:secondary,

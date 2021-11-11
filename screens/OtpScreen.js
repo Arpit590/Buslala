@@ -14,7 +14,7 @@ const OtpScreen = () => {
     const phoneNumber = route.params.number;
 
     const inputHandler=()=>{
-        if(OTP===""){
+        if(OTP==="" || OTP.length!==4){
             setError(true)
         }else{
             setError(false);
@@ -22,21 +22,24 @@ const OtpScreen = () => {
     }
 
     const verificatioHandler=()=>{
-        axios.post("https://otp.apistack.run/v1/verifyOtp",{
-            requestId: route.params.request,
-            otp: OTP
-        },{
-            headers:{
-                'x-as-apikey': '96d018bc-a7ab-4dc4-92b9-810921f1b0ce',
-                'Content-Type': "application/json"
-            }
-        })
-        .then((res)=>{
-            return res.data.isOtpValid
-        }).catch((err)=>{
-            console.log(err.message)
-        })
-        navigation.navigate("OtpVerified", {number: phoneNumber})
+
+        // OTP Verified Logic
+
+        // axios.post("https://otp.apistack.run/v1/verifyOtp",{
+        //     requestId: route.params.request,
+        //     otp: OTP
+        // },{
+        //     headers:{
+        //         'x-as-apikey': '96d018bc-a7ab-4dc4-92b9-810921f1b0ce',
+        //         'Content-Type': "application/json"
+        //     }
+        // })
+        // .then((res)=>{
+        //     return res.data.isOtpValid
+        // }).catch((err)=>{
+        //     console.log(err.message)
+        // })
+        {OTP && navigation.navigate("OtpVerified", {number: phoneNumber})}
     }
 
     return (
@@ -63,7 +66,7 @@ const OtpScreen = () => {
                     onBlur={inputHandler}
                     keyboardType="number-pad"
                     />
-                    <TouchableOpacity activeOpacity={0.8} style={styles.button}
+                    <TouchableOpacity disabled={error ? true : false} activeOpacity={0.8} style={styles.button}
                     onPress={verificatioHandler}
                     >
                         <Text style={{color:"white",fontSize:18, fontFamily:RalewayRegular}}>Verify</Text>
@@ -108,7 +111,8 @@ const styles = StyleSheet.create({
         backgroundColor:"lightgray",
         borderRadius:10,
         width:"80%",
-        marginVertical:20
+        marginVertical:20,
+        color:"black"
     },
     button:{
         backgroundColor:secondary,

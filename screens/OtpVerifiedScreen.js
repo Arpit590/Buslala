@@ -27,7 +27,7 @@ const OtpVerifiedScreen = () => {
                     style={{height:50, width:50, resizeMode:"contain", marginVertical:20}}
                     />
                     <TouchableOpacity activeOpacity={0.8} style={styles.button}
-                    onPress={()=>{navigation.navigate("Home")}}
+                    onPress={()=>{navigation.navigate("Oneway")}}
                     >
                         <Text style={{color:"white",fontSize:18, fontFamily:RalewayRegular}}>Verified</Text>
                     </TouchableOpacity>

@@ -1,12 +1,17 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native'
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import WelcomeScreen from './screens/WelcomeScreen';
 import LoginScreen from './screens/LoginScreen';
 import OtpScreen from './screens/OtpScreen';
 import OtpVerifiedScreen from './screens/OtpVerifiedScreen';
-import HomeScreen from './screens/HomeScreen';
+import OnewayScreen from './screens/OnewayScreen';
+import BusesScreen from './screens/BusesScreen';
+import ProfileScreen from './screens/ProfileScreen';
+import NotificationScreen from './screens/NotificationScreen';
+import PaymentSettings from './screens/PaymentSettings';
+import TicketScreen from './screens/TicketScreen';
+import BookingsScreen from './screens/BookingsScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -21,12 +26,16 @@ const App = () => {
         <Stack.Screen name="Login" component={LoginScreen}/>
         <Stack.Screen name="Otp" component={OtpScreen}/>
         <Stack.Screen name="OtpVerified" component={OtpVerifiedScreen}/>
-        <Stack.Screen name="Home" component={HomeScreen}/>
+        <Stack.Screen name="Oneway" component={OnewayScreen}/>
+        <Stack.Screen name="Buses" component={BusesScreen}/>
+        <Stack.Screen name="Profile" component={ProfileScreen}/>
+        <Stack.Screen name="Notifications" component={NotificationScreen}/>
+        <Stack.Screen name="PaymentSettings" component={PaymentSettings}/>
+        <Stack.Screen name="Tickets" component={TicketScreen}/>
+        <Stack.Screen name="Bookings" component={BookingsScreen}/>
       </Stack.Navigator>
     </NavigationContainer>
   )
 }
 
 export default App
-
-const styles = StyleSheet.create({})
