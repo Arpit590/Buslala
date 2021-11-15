@@ -139,7 +139,7 @@ const BusesScreen = () => {
                     />
                     </TouchableOpacity>
                     <View style={{flexDirection:"row", alignItems:"center"}}>
-                        <Text style={{fontSize:18, color:"black", fontFamily:RalewayBold, marginRight:10}}>Hyderabad</Text>
+                        <Text style={{fontSize:18, color:"black", fontFamily:RalewayBold, marginRight:10}}>{route.params?.from}</Text>
                         {twoway && <AntDesign
                         name="swap"
                         size={24}
@@ -150,7 +150,7 @@ const BusesScreen = () => {
                         color="black"
                         size={24}
                         />}
-                        <Text style={{fontSize:18, color:"black", fontFamily:RalewayBold, marginLeft:10}}>Chennai</Text>
+                        <Text style={{fontSize:18, color:"black", fontFamily:RalewayBold, marginLeft:10}}>{route.params?.to}</Text>
                     </View>
                     <AntDesign
                     name="down"

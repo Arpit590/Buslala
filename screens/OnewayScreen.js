@@ -20,8 +20,29 @@ const LoginScreen = () => {
     const [deptDate, setDeptDate] = useState("");
     const [returnDate, setReturnDate] = useState("");
     const [click, setClick] = useState(false);
+    const [from, setFrom] = useState("");
+    const [error, setError]= useState(false);
+    const [error1, setError1]= useState(false);
+    const [to, setTo]= useState("");
     const [isOneWay, setIsOneWay] = useState(true);
     const [isTwoWay, setIsTwoWay] = useState(false);
+
+
+    const inputHandler=()=>{
+        if(from===""){
+        setError1(true)}
+        else{
+            setError1(false);
+        }
+    }
+
+    const inputHandler1=()=>{
+        if(to===""){
+        setError1(true)}
+        else{
+            setError1(false);
+        }
+    }
 
     const handleConfirm1=(date)=>{
         setDeptDate(date);
@@ -44,8 +65,33 @@ const LoginScreen = () => {
     }
 
     const busesHandler=()=>{
-        navigation.navigate("Buses",{oneWay: isOneWay, twoWay: isTwoWay})
-    }
+        if(from==="" || to==="" || deptDate===""){
+            setError(true);
+            setError1(true)
+        }else{
+            setError(false);
+            setError1(false);
+            axios.post("http://192.168.29.21:3001/api/user/one_way",{"Source": from, "Destination": to, "Date": deptDate})
+            .then((response)=>{
+                if(response.status===200){
+                    console.log(response.data)
+                    navigation.navigate("Buses",{oneWay: isOneWay, twoWay: isTwoWay, from: from, to: to, deptDate: deptDate})
+                }else{
+                    console.log("Error")
+                }
+            }).catch((err)=>console.log(err))
+
+    }}
+
+    const busesHandler1=()=>{
+        if(from==="" || to==="" || deptDate==="" || returnDate===""){
+            setError(true);
+            setError1(true)
+        }else{
+            setError(false);
+            setError1(false);
+        navigation.navigate("Buses",{oneWay: isOneWay, twoWay: isTwoWay, from: from, to: to, deptDate: deptDate, returnDate: returnDate})
+    }}
 
     return (
         <View style={styles.screen}>
@@ -106,10 +152,14 @@ const LoginScreen = () => {
                             />
                             <TextInput
                             placeholder="To"
+                            value={to}
+                            onChangeText={(text)=>setTo(text)}
                             placeholderTextColor="gray"
-                            style={{marginLeft:10, width:"100%"}}
+                            onBlur={inputHandler}
+                            style={{marginLeft:10, width:"100%", color:"black"}}
                             />
                         </View>
+                        {error1 ? <Text style={{color:"red", fontSize:12}}>Please Enter The Details</Text>:<Text></Text>}
                     </KeyboardAvoidingView> :
                     <KeyboardAvoidingView behavior="padding" style={styles.box}>
                         <View style={{alignItems:"center", flexDirection:"row"}}>
@@ -121,9 +171,13 @@ const LoginScreen = () => {
                             <TextInput
                             placeholder="From"
                             placeholderTextColor="gray"
-                            style={{marginLeft:10, width:"100%"}}
+                            value={from}
+                            onBlur={inputHandler1}
+                            onChangeText={(text)=>setFrom(text)}
+                            style={{marginLeft:10, width:"100%", color:"black"}}
                             />
                         </View>
+                        {error ? <Text style={{color:"red", fontSize:12}}>Please Enter The Details</Text>: <Text></Text>}
                     </KeyboardAvoidingView>}
                     <TouchableOpacity activeOpacity={0.8} 
                     onPress={()=>setClick(!click)}
@@ -144,9 +198,14 @@ const LoginScreen = () => {
                             <TextInput
                             placeholder="From"
                             placeholderTextColor="gray"
+                            onChangeText={(text)=>setFrom(text)}
                             style={{marginLeft:10, width:"100%"}}
+                            onBlur={inputHandler1}
+                            value={from}
+                            style={{marginLeft:10, width:"100%", color:"black"}}
                             />
                         </View>
+                        {error ? <Text style={{color:"red", fontSize:12}}>Please Enter The Details</Text>: <Text></Text>}
                     </KeyboardAvoidingView>
                     :<KeyboardAvoidingView behavior="padding" style={styles.box}>
                         <View style={{flexDirection:"row", alignItems:"center"}}>
@@ -158,9 +217,13 @@ const LoginScreen = () => {
                             <TextInput
                             placeholder="To"
                             placeholderTextColor="gray"
-                            style={{marginLeft:10, width:"100%"}}
+                            onChangeText={(text)=>setTo(text)}
+                            value={to}
+                            onBlur={inputHandler}
+                            style={{marginLeft:10, width:"100%", color:"black"}}
                             />
                         </View>
+                        {error1 ? <Text style={{color:"red", fontSize:12}}>Please Enter The Details</Text>:<Text></Text>}
                     </KeyboardAvoidingView>}
                     <View style={styles.tab}>
                         <TouchableOpacity
@@ -246,7 +309,7 @@ const LoginScreen = () => {
                         </View>
                     </View>}
                     <TouchableOpacity  activeOpacity={0.8} style={styles.button}
-                    onPress={busesHandler}>
+                    onPress={isOneWay ? busesHandler : busesHandler1}>
                         <Text style={{color:"white",fontSize:18, fontFamily:RalewayBold}}>Find Buses</Text>
                     </TouchableOpacity>
                 </View>

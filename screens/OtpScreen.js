@@ -1,7 +1,7 @@
 import { useNavigation, useRoute } from '@react-navigation/core'
 import React, { useState } from 'react'
 import axios from "axios";
-import { Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Alert, Image, KeyboardAvoidingView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { RalewayBold, RalewayLight, RalewayRegular } from '../assets/fonts/fonts'
 import { primary, secondary, textColor } from '../components/Colors'
 
@@ -11,10 +11,10 @@ const OtpScreen = () => {
     const route = useRoute();
     const [error, setError] = useState(false);
     const [OTP, setOTP]= useState("");
-    const phoneNumber = route.params.number;
+    const [otp, setOtp] = useState(false);
 
     const inputHandler=()=>{
-        if(OTP==="" || OTP.length!==4){
+        if(OTP==="" || OTP.length!==6){
             setError(true)
         }else{
             setError(false);
@@ -22,6 +22,26 @@ const OtpScreen = () => {
     }
 
     const verificatioHandler=()=>{
+
+        axios.post("http://192.168.29.21:3001/api/user/signup/verify", {
+            "number": route.params.number,
+            "otp": OTP
+        })
+        .then((response)=>{
+            if(response){
+            console.log("User Registerd Successfully");
+            console.log(response)
+            setOtp(false);
+            {OTP && navigation.navigate("OtpVerified", {number: route.params.number})}
+            }else{
+                Alert.alert("Invalid Otp");
+                console.log("Invalid")
+            }
+        })
+        .catch((err)=>{
+            console.log(`Not Registerd ${err}`);
+            setOtp(true)
+        });
 
         // OTP Verified Logic
 
@@ -39,7 +59,6 @@ const OtpScreen = () => {
         // }).catch((err)=>{
         //     console.log(err.message)
         // })
-        {OTP && navigation.navigate("OtpVerified", {number: phoneNumber})}
     }
 
     return (
@@ -54,8 +73,9 @@ const OtpScreen = () => {
             <View style={styles.view2}>
                 <KeyboardAvoidingView behavior="padding" style={styles.box}>
                     <Text style={{fontFamily:RalewayBold, fontSize:20, color:"#242424", marginBottom:10}}>OTP Verification</Text>
-                    <Text style={{fontFamily:RalewayRegular, fontSize:18, color:"#242424"}}>Code Sent to {phoneNumber}</Text>
+                    <Text style={{fontFamily:RalewayRegular, fontSize:18, color:"#242424"}}>Code Sent to {route.params.number}</Text>
                     {error ? <Text style={{color:"red", fontSize:12, marginBottom:1}}>Please Enter a Valid OTP!</Text>:<Text></Text>}
+                    {otp ? <Text style={{color:"red", fontSize:12, marginBottom:1}}>Invalid OTP!</Text>:<Text></Text>}
                     <TextInput
                     style={styles.input}
                     placeholder="Enter OTP"
