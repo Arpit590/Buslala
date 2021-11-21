@@ -12,7 +12,7 @@ module.exports.Otp=model('Otp',Schema({
   createdAt:{
       type: Date,
       default:Date.now,
-      index:{expires:3000}
+      // index:{expires:30000}
   }
 
 },{timestamps:true}))

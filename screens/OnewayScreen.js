@@ -249,6 +249,8 @@ const LoginScreen = () => {
                             onCloseModal={()=>setIsVisible1(false)}
                             format="DD/MM/YYYY"
                             hideText={true}
+                            minDate={new Date()}
+                            maxDate="31/12/2021"
                             onDateChange={handleConfirm1}
                             cancelBtnText="Cancel"
                             confirmBtnText="Confirm"
@@ -275,6 +277,8 @@ const LoginScreen = () => {
                                 hideText={true}
                                 onDateChange={handleConfirm1}
                                 cancelBtnText="Cancel"
+                                minDate={new Date()}
+                                maxDate="31/12/2021"
                                 confirmBtnText="Confirm"
                                 customStyles={{
                                     dateIcon:{
@@ -296,6 +300,8 @@ const LoginScreen = () => {
                                 onCloseModal={()=>setIsVisible2(false)}
                                 format="DD/MM/YYYY"
                                 hideText={true}
+                                minDate={new Date()}
+                                maxDate="31/12/2021"
                                 onDateChange={handleConfirm2}
                                 cancelBtnText="Cancel"
                                 confirmBtnText="Confirm"
