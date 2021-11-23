@@ -15,6 +15,8 @@ import BookingsScreen from './screens/BookingsScreen';
 import DetailsScreen from './screens/DetailsScreen';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
+import BusDetailsScreen from './screens/BusDetailsScreen';
+import BookedSuccessfullyScreen from './screens/BookedSuccessfullyScreen';
 
 const Stack = createNativeStackNavigator();
 
@@ -32,6 +34,8 @@ const App = () => {
           <Stack.Screen name="Details" component={DetailsScreen}/>
           <Stack.Screen name="Oneway" component={OnewayScreen}/>
           <Stack.Screen name="Buses" component={BusesScreen}/>
+          <Stack.Screen name="BusDetails" component={BusDetailsScreen}/>
+          <Stack.Screen name="Booked Successfully" component={BookedSuccessfullyScreen}/>
           <Stack.Screen name="Profile" component={ProfileScreen}/>
           <Stack.Screen name="Notifications" component={NotificationScreen}/>
           <Stack.Screen name="PaymentSettings" component={PaymentSettings}/>

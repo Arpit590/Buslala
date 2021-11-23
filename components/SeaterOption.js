@@ -11,8 +11,14 @@ const SeaterOption = ({name, price, hours, rating, desc, seats, deptHour, arriva
 
     const navigation = useNavigation();
 
+    const busHandler=()=>{
+        navigation.navigate("BusDetails", {"name": name, "price": price, "hours": hours, "deptHour": deptHour, "arrivalHour": arrivalHour})
+    }
+
     return (
-        <TouchableOpacity activeOpacity={0.8} style={styles.container}>
+        <TouchableOpacity activeOpacity={0.8} style={styles.container}
+        onPress={busHandler}
+        >
             <View style={styles.view1}>
                 <Text style={{fontFamily:RalewayBold, color:"black", fontSize:14, marginBottom:5}}>{name}</Text>
                 <Text style={{fontSize:10, fontFamily:RalewayRegular, color:"gray"}}>{desc}</Text>

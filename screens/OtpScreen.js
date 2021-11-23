@@ -23,7 +23,7 @@ const OtpScreen = () => {
 
     const verificatioHandler=()=>{
 
-        axios.post("http://192.168.29.21:3001/api/user/signup/verify", {
+        axios.post("https://buslala-backend.herokuapp.com/api/user/signup/verify", {
             "number": route.params.number,
             "otp": OTP
         })

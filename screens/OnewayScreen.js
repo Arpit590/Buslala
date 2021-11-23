@@ -71,7 +71,7 @@ const LoginScreen = () => {
         }else{
             setError(false);
             setError1(false);
-            axios.post("http://192.168.29.21:3001/api/user/one_way",{"Source": from, "Destination": to, "Date": deptDate})
+            axios.post("https://buslala-backend.herokuapp.com/api/user/one_way",{"Source": from, "Destination": to, "Date": deptDate})
             .then((response)=>{
                 if(response.status===200){
                     console.log(response.data)

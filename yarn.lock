@@ -5722,6 +5722,11 @@
   "resolved" "https://registry.npmjs.org/punycode/-/punycode-2.1.1.tgz"
   "version" "2.1.1"
 
+"qs@6.9.4":
+  "integrity" "sha512-A1kFqHekCTM7cz0udomYUoYNWjBebHm/5wzU/XqrBRBNWectVH0QIiN+NEcZ0Dte5hvzHwbr8+XQmguPhJ6WdQ=="
+  "resolved" "https://registry.npmjs.org/qs/-/qs-6.9.4.tgz"
+  "version" "6.9.4"
+
 "query-string@^7.0.0":
   "integrity" "sha512-uIw3iRvHnk9to1blJCG3BTc+Ro56CBowJXKmNNAm3RulvPBzWLRqKSiiDk+IplJhsydwtuNMHi8UGQFcCLVfkA=="
   "resolved" "https://registry.npmjs.org/query-string/-/query-string-7.0.1.tgz"
@@ -5792,6 +5797,13 @@
   "version" "7.1.1"
   dependencies:
     "invariant" "^2.2.4"
+
+"react-native-email@^1.1.0":
+  "integrity" "sha512-vyH8gkk+Rz/l7QF76bSr6EclBu1yF7DMWejfspGdbOsDe6/6TGbReP0t4zx2FXR4mh6h4GjmZNPwFEwycepGRA=="
+  "resolved" "https://registry.npmjs.org/react-native-email/-/react-native-email-1.1.0.tgz"
+  "version" "1.1.0"
+  dependencies:
+    "qs" "6.9.4"
 
 "react-native-gesture-handler@*":
   "integrity" "sha512-cBGMi1IEsIVMgoox4RvMx7V2r6bNKw0uR1Mu1o7NbuHS6BRSVLq0dP34l2ecnPlC+jpWd3le6Yg1nrdCjby2Mw=="

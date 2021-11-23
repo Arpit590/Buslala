@@ -22,12 +22,13 @@ const LoginScreen = () => {
     }
 
     const verificatioHandler=()=>{
-        axios.post("http://192.168.29.21:3001/api/user/signup", {"number": num})
+        {num &&
+        axios.post("https://buslala-backend.herokuapp.com/api/user/signup", {"number": num})
         .then((response)=>{
             if(response.status===200){
-                console.log("otp SENT")
-                console.log(response.status)
                 setUser(false);
+                console.log("OTP SENT")
+                console.log(response.status)
                 {num && navigation.navigate("Otp", {number:num})}
             }else{
                 console.log(response.status)
@@ -36,6 +37,7 @@ const LoginScreen = () => {
             console.log("User Already Registered")
             setUser(true);
             })
+        }
 
         //OTP Verification Logic
         
