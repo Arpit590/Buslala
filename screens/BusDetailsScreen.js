@@ -1,4 +1,5 @@
 import { useNavigation, useRoute } from '@react-navigation/core'
+import axios from 'axios'
 import React, { useState } from 'react'
 import { Alert, Image, KeyboardAvoidingView, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import { RalewayBold, RalewayLight, RalewayRegular } from '../assets/fonts/fonts'
@@ -28,6 +29,12 @@ const BusDetailsScreen = () => {
         {
             setError(true);
         }else{
+            axios.post("https://buslala-backend.herokuapp.com/api/user/Booking_query", {"Email": emails, "Name": myName, "BusName": route.params.name, "Price": route.params.price, "Time": route.params.deptHour})
+            .then((res)=>{
+                console.log(res.data);
+                navigation.navigate("Booked Successfully", {"myName": myName});
+            })
+            .catch((err)=>console.log(err))
             // sendEmail(emails,{
             //     subject: "Ticket Confirmation Mail",
             //     cc: "Saxenaarpit52@gmail.com",
@@ -37,7 +44,7 @@ const BusDetailsScreen = () => {
             //     2. Ticket Price: ${route.params.price}
             //     3. Timings: from ${route.params.deptHour} to ${route.params.arrivalHour}` 
             // }).catch(console.error);
-        navigation.navigate("Booked Successfully", {"myName": myName});
+
         }
     }
 

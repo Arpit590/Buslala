@@ -13,7 +13,6 @@ const{Trip}=require('../Models/TripModels')
 const {Businfo}=require('../Models/BusModel');
 const { response } = require('express');
 const { profile } = require("console");
-const Api_key="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";
 
 
 // ******************************************SignUp*****************************************************************
@@ -32,7 +31,7 @@ module.exports.signUp=async(req,res)=>{
    client.messages.create({
        to:`+91${number}`,
        from:'+14506003133',
-       body:`Hello!! Welcome to Buslala. Here's your Otp:${OTP}`
+       body:`Hello!! welcome to Buslala .Your Otp is:${OTP}`
    })
 
    console.log(OTP)
@@ -84,19 +83,15 @@ if(rightOtpFind.number===req.body.number&&validuser){
 module.exports.User_data=async(req ,res)=>{
     var profile = new Profile({
         name: req.body.name,
-        address:req.body.address,
+        number:req.body.number,
         Email: req.body.Email,
-        number: req.body.number
+        gender: req.body.gender,
+        Age: req.body.Age,
+
     })
     
     profile.save(() => {
-        res.status(200).send("<h1>Data saved </h1>")
-        const client=require('twilio')(process.env.accountSID,process.env.authToken)
-        client.messages.create({
-            to:`+91${profile.number}`,
-            from:'+14506003133',
-            body:`Hello!! Welcome to Buslala. Here's your Otp:${profile.name}`
-        })
+        res.send("<h1>Data saved </h1>")
     })
 }
 
@@ -167,30 +162,35 @@ module.exports.CheckOneWayBus=async(req,res)=>{
 
 module.exports.EmailSend=async(req,res)=>{
     const Email=req.body.Email
-    sgMail.setApiKey(Api_key)
+    const Name=req.body.Name
+    const BusName=req.body.BusName
+    const Time=req.body.Time
+    const Price=req.body.Price
+
+    sgMail.setApiKey(process.env.Api_key)
     const mssg=  {
         to:`${Email}`,
         from:{
             name:"Buslala",
-            email:`ynitin407@gmail.com`
+            email:`ny6164238@gmail.com`
         },
-        Subject:'Hello this is demo',
-        text:'Hello demo',
-        html:'<h1> Hello!!Welcome to Buslala. Your Booking query has been recorded.And send to our executive. </h1>',
+        Subject:'Booking Query Submmited',
+        text:`Hello ${Name}!You have booked a seat from Buslala App.Please Find the details of the Bus Below: 1.Bus Name :${BusName} 2.Ticket Price: Rs.${Price} 3. Timmings:from ${Time}`,
+        html:`<p>Hello ${Name}! <br>You have booked a seat from Buslala App.<br>Please Find the details of the Bus Below:<br> 1.Bus Name :${BusName}<br> 2.Ticket Price: Rs.${Price}<br> 3. Timmings:from ${Time}</p>`,
   }
   sgMail.send(mssg).then(res.send('Email successfull'))
   
   setTimeout(function(){
-    sgMail.setApiKey(Api_key)
+    sgMail.setApiKey(process.env.Api_key)
     const mssg2=  {
         to:`ynitink25@gmail.com`,
         from:{
             name:"Buslala",
-            email:`ynitin407@gmail.com`
+            email:`ny6164238@gmail.com`
         },
-        Subject:'Hello this is demo',
-        text:'Hello demo',
-        html:'<h1>Hello Admin!! A Booking query has been Recorded .</h1>',
+        Subject:'Booking Notice ',
+        text:`Hello ${Name}! You have booked a seat from Buslala App.Please Find the details of the Bus Below: 1.Bus Name :${BusName} 2.Ticket Price: Rs.${Price} 3. Timmings:from ${Time}`,
+        html:`<h1>Hello ${Name}! You have booked a seat from Buslala App.Please Find the details of the Bus Below: 1.Bus Name :${BusName} 2.Ticket Price: Rs.${Price} 3. Timmings:from ${Time}</p></h1>`,
   }
     sgMail.send(mssg2)}, 3000);  
 }

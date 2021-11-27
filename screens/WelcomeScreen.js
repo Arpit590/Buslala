@@ -19,7 +19,7 @@ const WelcomeScreen = () => {
                     <Text style={{fontSize:35, color:fontColor,  fontFamily:RalewayRegular, letterSpacing:6}}>Welcome To</Text>
                     <View style={{flexDirection:"row",paddingHorizontal:3, alignSelf:"center"}}>
                         <Text style={{fontSize:35, color:secondary, fontFamily:RalewayRegular, letterSpacing:15}}>B</Text>
-                        <Text style={{fontSize:35, color:fontColor, fontFamily:RalewayRegular, letterSpacing:15}}>usala</Text>
+                        <Text style={{fontSize:35, color:fontColor, fontFamily:RalewayRegular, letterSpacing:15}}>uslala</Text>
                     </View>
                 </View>
                 <View style={styles.view1}>
